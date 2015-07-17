@@ -1,6 +1,14 @@
 from protorpc import messages
 
 
+class Zone(messages.Message):
+    pass
+
+
+class Cluster(messages.Message):
+    pass
+
+
 class ListZonesRequest(messages.Message):
     pass
 

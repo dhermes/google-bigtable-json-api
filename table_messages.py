@@ -1,6 +1,18 @@
 from protorpc import messages
 
 
+class Table(messages.Message):
+    pass
+
+
+class ColumnFamily(messages.Message):
+    pass
+
+
+class GcRule(messages.Message):
+    pass
+
+
 class CreateTableRequest(messages.Message):
     pass
 
