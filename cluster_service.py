@@ -8,15 +8,15 @@ class BigtableClusterService(remote.Service):
 
     def ListZones(self, request):
         """Lists the supported zones for the given project."""
-        # request type: ListZonesRequest
+        # request type: cluster_messages.ListZonesRequest
         # get: "/v1/{name=projects/*}/zones"
-        return ListZonesResponse()
+        return cluster_messages.ListZonesResponse()
 
     def GetCluster(self, request):
         """Gets information about a particular cluster."""
-        # request type: GetClusterRequest
+        # request type: cluster_messages.GetClusterRequest
         # get: "/v1/{name=projects/*/zones/*/clusters/*}"
-        return Cluster()
+        return cluster_messages.Cluster()
 
     def ListClusters(self, request):
         """Lists clusters.
@@ -24,9 +24,9 @@ class BigtableClusterService(remote.Service):
         Lists all clusters in the given project, along with any zones for which
         cluster information could not be retrieved.
         """
-        # request type: ListClustersRequest
+        # request type: cluster_messages.ListClustersRequest
         # get: "/v1/{name=projects/*}/aggregated/clusters"
-        return ListClustersResponse()
+        return cluster_messages.ListClustersResponse()
 
     def CreateCluster(self, request):
         """Creates a cluster.
@@ -50,9 +50,9 @@ class BigtableClusterService(remote.Service):
         [CreateClusterMetadata][google.bigtable.admin.cluster.v1.CreateClusterMetadata] The embedded operation's "response" field type is
         [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.
         """
-        # request type: CreateClusterRequest
+        # request type: cluster_messages.CreateClusterRequest
         # post: "/v1/{name=projects/*/zones/*}/clusters"
-        return Cluster()
+        return cluster_messages.Cluster()
 
     def UpdateCluster(self, request):
         """Updates cluster.
@@ -81,9 +81,9 @@ class BigtableClusterService(remote.Service):
         [UpdateClusterMetadata][google.bigtable.admin.cluster.v1.UpdateClusterMetadata] The embedded operation's "response" field type is
         [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.
         """
-        # request type: Cluster
+        # request type: cluster_messages.Cluster
         # put: "/v1/{name=projects/*/zones/*/clusters/*}"
-        return Cluster()
+        return cluster_messages.Cluster()
 
     def DeleteCluster(self, request):
         """Delete cluster.
@@ -101,7 +101,7 @@ class BigtableClusterService(remote.Service):
          * The cluster and *all of its tables* will immediately and irrevocably
            disappear from the API, and their data will be permanently deleted.
         """
-        # request type: DeleteClusterRequest
+        # request type: cluster_messages.DeleteClusterRequest
         # delete: "/v1/{name=projects/*/zones/*/clusters/*}"
         return dependency_messages.Empty()
 
@@ -122,6 +122,6 @@ class BigtableClusterService(remote.Service):
         [UndeleteClusterMetadata][google.bigtable.admin.cluster.v1.UndeleteClusterMetadata] The embedded operation's "response" field type is
         [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.
         """
-        # request type: UndeleteClusterRequest
+        # request type: cluster_messages.UndeleteClusterRequest
         # post: "/v1/{name=projects/*/zones/*/clusters/*}:undelete"
         return dependency_messages.Operation()
