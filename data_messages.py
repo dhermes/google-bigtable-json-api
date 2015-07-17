@@ -324,32 +324,131 @@ class ReadModifyWriteRule(messages.Message):
 
 
 class ReadRowsRequest(messages.Message):
-    pass
+    # The unique name of the table from which to read.
+    table_name = messages.StringField(1)
+
+    # If neither row_key nor row_range is set, reads from all rows.
+    # NOTE: oneof, target{row_key, row_range}
+
+    # The key of a single row from which to read.
+    row_key = messages.BytesField(2)
+    # A range of rows from which to read.
+    row_range = messages.MessageField(RowRange, 3)
+
+    # The filter to apply to the contents of the specified row(s). If unset,
+    # reads the entire table.
+    filter = messages.MessageField(RowFilter, 5)
+    # By default, rows are read sequentially, producing results which are
+    # guaranteed to arrive in increasing row order. Setting
+    # "allow_row_interleaving" to true allows multiple rows to be interleaved in
+    # the response stream, which increases throughput but breaks this guarantee,
+    # and may force the client to use more memory to buffer partially-received
+    # rows.
+    allow_row_interleaving = messages.BooleanField(6)
+    # The read will terminate after committing to N rows' worth of results. The
+    # default (zero) is to return all results.
+    # Note that if "allow_row_interleaving" is set to true, partial results may
+    # be returned for more than N rows. However, only N "commit_row" chunks will
+    # be sent.
+    num_rows_limit = messages.IntegerField(7, variant=messages.Variant.INT64)
 
 
 class ReadRowsResponse(messages.Message):
-    pass
+    # Specifies a piece of a row's contents returned as part of the read
+    # response stream.
+    class Chunk(message.Message):
+        # NOTE: oneof, chunk{row_contents, reset_row, commit_row}
+
+        # A subset of the data from a particular row. As long as no "reset_row"
+        # is received in between, multiple "row_contents" from the same row are
+        # from the same atomic view of that row, and will be received in the
+        # expected family/column/timestamp order.
+        row_contents = messages.MessageField(Family, 1)
+        # Indicates that the client should drop all previous chunks for
+        # "row_key", as it will be re-read from the beginning.
+        reset_row = messages.BooleanField(2)
+        # Indicates that the client can safely process all previous chunks for
+        # "row_key", as its data has been fully read.
+        commit_row = messages.BooleanField(3)
+
+    # The key of the row for which we're receiving data.
+    # Results will be received in increasing row key order, unless
+    # "allow_row_interleaving" was specified in the request.
+    row_key = messages.BytesField(1)
+    # One or more chunks of the row specified by "row_key".
+    chunks = messages.MessageField(Chunk, 2, repeated=True)
 
 
 class SampleRowKeysRequest(messages.Message):
-    pass
+    # The unique name of the table from which to sample row keys.
+    table_name = messages.StringField(1)
 
 
 class SampleRowKeysResponse(messages.Message):
-    pass
+    # Sorted streamed sequence of sample row keys in the table. The table might
+    # have contents before the first row key in the list and after the last one,
+    # but a key containing the empty string indicates "end of table" and will be
+    # the last response given, if present.
+    # Note that row keys in this list may not have ever been written to or read
+    # from, and users should therefore not make any assumptions about the row key
+    # structure that are specific to their use case.
+    row_key = messages.BytesField(1)
+    # Approximate total storage space used by all rows in the table which precede
+    # "row_key". Buffering the contents of all rows between two subsequent
+    # samples would require space roughly equal to the difference in their
+    # "offset_bytes" fields.
+    offset_bytes = messages.IntegerField(2, variant=messages.Variant.INT64)
 
 
 class MutateRowRequest(messages.Message):
-    pass
+    # The unique name of the table to which the mutation should be applied.
+    table_name = messages.StringField(1)
+    # The key of the row to which the mutation should be applied.
+    row_key = messages.BytesField(2)
+    # Changes to be atomically applied to the specified row. Entries are applied
+    # in order, meaning that earlier mutations can be masked by later ones.
+    # Must contain at least one entry and at most 100000.
+    mutations = messages.MessageField(Mutation, 3, repeated=True)
 
 
 class CheckAndMutateRowRequest(messages.Message):
-    pass
+    # The unique name of the table to which the conditional mutation should be
+    # applied.
+    table_name = messages.StringField(1)
+    # The key of the row to which the conditional mutation should be applied.
+    row_key = messages.BytesField(2)
+    # The filter to be applied to the contents of the specified row. Depending
+    # on whether or not any results are yielded, either "true_mutations" or
+    # "false_mutations" will be executed. If unset, checks that the row contains
+    # any values at all.
+    predicate_filter = messages.MessageField(RowFilter, 6)
+    # Changes to be atomically applied to the specified row if "predicate_filter"
+    # yields at least one cell when applied to "row_key". Entries are applied in
+    # order, meaning that earlier mutations can be masked by later ones.
+    # Must contain at least one entry if "false_mutations" is empty, and at most
+    # 100000.
+    true_mutations = messages.MessageField(Mutation, 4, repeated=True)
+    # Changes to be atomically applied to the specified row if "predicate_filter"
+    # does not yield any cells when applied to "row_key". Entries are applied in
+    # order, meaning that earlier mutations can be masked by later ones.
+    # Must contain at least one entry if "true_mutations" is empty, and at most
+    # 100000.
+    false_mutations = messages.MessageField(Mutation, 5, repeated=True)
 
 
 class CheckAndMutateRowResponse(messages.Message):
-    pass
+    # Whether or not the request's "predicate_filter" yielded any results for
+    # the specified row.
+    predicate_matched = messages.BooleanField(1)
 
 
 class ReadModifyWriteRowRequest(messages.Message):
-    pass
+    # The unique name of the table to which the read/modify/write rules should be
+    # applied.
+    table_name = messages.StringField(1)
+    # The key of the row to which the read/modify/write rules should be applied.
+    row_key = messages.BytesField(2)
+    # Rules specifying how the specified row's contents are to be transformed
+    # into writes. Entries are applied in order, meaning that earlier rules will
+    # affect the results of later ones.
+    rules = messages.MessageField(ReadModifyWriteRule, 3, repeated=True)
