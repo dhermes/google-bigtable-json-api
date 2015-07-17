@@ -356,7 +356,7 @@ class ReadRowsRequest(messages.Message):
 class ReadRowsResponse(messages.Message):
     # Specifies a piece of a row's contents returned as part of the read
     # response stream.
-    class Chunk(message.Message):
+    class Chunk(messages.Message):
         # NOTE: oneof, chunk{row_contents, reset_row, commit_row}
 
         # A subset of the data from a particular row. As long as no "reset_row"
