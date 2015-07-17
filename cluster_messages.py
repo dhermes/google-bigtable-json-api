@@ -64,44 +64,86 @@ class Cluster(messages.Message):
 
 
 class ListZonesRequest(messages.Message):
-    pass
+    # The unique name of the project for which a list of supported zones is
+    # requested.
+    # Values are of the form projects/<project>
+    name = messages.StringField(1)
 
 
 class ListZonesResponse(messages.Message):
-    pass
+    # The list of requested zones.
+    zones = messages.MessageField(Zone, 1, repeated=True)
 
 
 class GetClusterRequest(messages.Message):
-    pass
+    # The unique name of the requested cluster.
+    # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
+    name = messages.StringField(1)
 
 
 class ListClustersRequest(messages.Message):
-    pass
+    # The unique name of the project for which a list of clusters is requested.
+    # Values are of the form projects/<project>
+    name = messages.StringField(1)
 
 
 class ListClustersResponse(messages.Message):
-    pass
+    # The list of requested Clusters.
+    clusters = messages.MessageField(Cluster, 1, repeated=True)
+    # The zones for which clusters could not be retrieved.
+    failed_zones = messages.MessageField(Zone, 2, repeated=True)
 
 
 class CreateClusterRequest(messages.Message):
-    pass
+    # The unique name of the zone in which to create the cluster.
+    # Values are of the form projects/<project>/zones/<zone>
+    name = messages.StringField(1)
+    # The id to be used when referring to the new cluster within its zone,
+    # e.g. just the "test-cluster" section of the full name
+    # "projects/<project>/zones/<zone>/clusters/test-cluster".
+    cluster_id = messages.StringField(2)
+    # The cluster to create.
+    # The "name", "delete_time", and "current_operation" fields must be left
+    # blank.
+    cluster = messages.MessageField(Cluster, 3)
 
 
 class CreateClusterMetadata(messages.Message):
-    pass
+    # The request which prompted the creation of this operation.
+    original_request = messages.MessageField(CreateClusterRequest, 1)
+    # The time at which original_request was received.
+    request_time = messages.MessageField(dependency_messages.Timestamp, 2)
+    # The time at which this operation failed or was completed successfully.
+    finish_time = messages.MessageField(dependency_messages.Timestamp, 3)
 
 
 class UpdateClusterMetadata(messages.Message):
-    pass
+    # The request which prompted the creation of this operation.
+    original_request = messages.MessageField(Cluster, 1)
+    # The time at which original_request was received.
+    request_time = messages.MessageField(dependency_messages.Timestamp, 2)
+    # The time at which this operation was cancelled. If set, this operation is
+    # in the process of undoing itself (which is guaranteed to succeed) and
+    # cannot be cancelled again.
+    cancel_time = messages.MessageField(dependency_messages.Timestamp, 3)
+    # The time at which this operation failed or was completed successfully.
+    finish_time = messages.MessageField(dependency_messages.Timestamp, 4)
 
 
 class DeleteClusterRequest(messages.Message):
-    pass
+    # The unique name of the cluster to be deleted.
+    # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
+    name = messages.StringField(1)
 
 
 class UndeleteClusterRequest(messages.Message):
-    pass
+    # The unique name of the cluster to be un-deleted.
+    # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
+    name = messages.StringField(1)
 
 
 class UndeleteClusterMetadata(messages.Message):
-    pass
+    # The time at which the original request was received.
+    request_time = messages.MessageField(dependency_messages.Timestamp, 1)
+    # The time at which this operation failed or was completed successfully.
+    finish_time = messages.MessageField(dependency_messages.Timestamp, 2)
