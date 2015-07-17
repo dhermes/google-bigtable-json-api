@@ -87,32 +87,71 @@ class ColumnFamily(messages.Message):
 
 
 class CreateTableRequest(messages.Message):
-    pass
+    # The unique name of the cluster in which to create the new table.
+    name = messages.StringField(1)
+    # The name by which the new table should be referred to within the cluster,
+    # e.g. "foobar" rather than "<cluster_name>/tables/foobar".
+    table_id = messages.StringField(2)
+    # The Table to create. The `name` field of the Table and all of its
+    # ColumnFamilies must be left blank, and will be populated in the response.
+    table = messages.MessageField(Table, 3)
+    # The optional list of row keys that will be used to initially split the
+    # table into several tablets (Tablets are similar to HBase regions).
+    # Given two split keys, "s1" and "s2", three tablets will be created,
+    # spanning the key ranges: [, s1), [s1, s2), [s2, ).
+    #
+    # Example:
+    #  * Row keys := ["a", "apple", "custom", "customer_1", "customer_2",
+    #                 "other", "zz"]
+    #  * initial_split_keys := ["apple", "customer_1", "customer_2", "other"]
+    #  * Key assignment:
+    #    - Tablet 1 [, apple)                => {"a"}.
+    #    - Tablet 2 [apple, customer_1)      => {"apple", "custom"}.
+    #    - Tablet 3 [customer_1, customer_2) => {"customer_1"}.
+    #    - Tablet 4 [customer_2, other)      => {"customer_2"}.
+    #    - Tablet 5 [other, )                => {"other", "zz"}.
+    initial_split_keys = messages.StringField(4, repeated=True)
 
 
 class ListTablesRequest(messages.Message):
-    pass
+    # The unique name of the cluster for which tables should be listed.
+    name = messages.StringField(1)
 
 
 class ListTablesResponse(messages.Message):
-    pass
+    # The tables present in the requested cluster.
+    # At present, only the names of the tables are populated.
+    tables = messages.MessageField(Table, 1, repeated=True)
 
 
 class GetTableRequest(messages.Message):
-    pass
+    # The unique name of the requested table.
+    name = messages.StringField(1)
 
 
 class DeleteTableRequest(messages.Message):
-    pass
+    # The unique name of the table to be deleted.
+    name = messages.StringField(1)
 
 
 class RenameTableRequest(messages.Message):
-    pass
+    # The current unique name of the table.
+    name = messages.StringField(1)
+    # The new name by which the table should be referred to within its containing
+    # cluster, e.g. "foobar" rather than "<cluster_name>/tables/foobar".
+    new_id = messages.StringField(2)
 
 
 class CreateColumnFamilyRequest(messages.Message):
-    pass
+    # The unique name of the table in which to create the new column family.
+    name = messages.StringField(1)
+    # The name by which the new column family should be referred to within the
+    # table, e.g. "foobar" rather than "<table_name>/columnFamilies/foobar".
+    column_family_id = messages.StringField(2)
+    # The column family to create. The `name` field must be left blank.
+    column_family = messages.MessageField(columnFamily, 3)
 
 
 class DeleteColumnFamilyRequest(messages.Message):
-    pass
+    # The unique name of the column family to be deleted.
+    name = messages.StringField(1)
