@@ -85,3 +85,7 @@ class Operation(messages.Message):
     # is `TakeSnapshot()`, the inferred response type will be
     # `TakeSnapshotResponse`.
     response = messages.MessageField(Any, 5)
+
+
+class Empty(messages.Message):
+    """Defines google.protobuf.Empty."""
