@@ -28,12 +28,12 @@ class GcRule(messages.Message):
     # A GcRule which deletes cells matching all of the given rules.
     class Intersection(messages.Message):
         # Only delete cells which would be deleted by every element of `rules`.
-        rules = messages.MessageField(GcRule, 1, repeated=True)
+        rules = messages.MessageField('GcRule', 1, repeated=True)
 
     # A GcRule which deletes cells matching any of the given rules.
     class Union(messages.Message):
         # Delete cells which would be deleted by any element of `rules`.
-        rules = messages.MessageField(GcRule, 1, repeated=True)
+        rules = messages.MessageField('GcRule', 1, repeated=True)
 
     # NOTE: oneof, rule{max_num_versions, max_age, intersection, union}
 
