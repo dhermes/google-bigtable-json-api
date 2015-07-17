@@ -1,5 +1,7 @@
 from protorpc import messages
 
+import dependency_messages
+
 
 class Zone(messages.Message):
 
@@ -20,6 +22,16 @@ class Zone(messages.Message):
     display_name = messages.StringField(2)
     # The current state of this zone.
     status = messages.EnumField(Status, 3)
+
+
+class StorageType(messages.Enum):
+    # The storage type used is unspecified.
+    STORAGE_UNSPECIFIED = 0
+    # Data will be stored in SSD, providing low and consistent latencies.
+    STORAGE_SSD = 1
+    # Data will be stored in HDD, providing high and less predictable
+    # latencies.
+    STORAGE_HDD = 2
 
 
 class Cluster(messages.Message):
@@ -49,16 +61,6 @@ class Cluster(messages.Message):
     # What storage type to use for tables in this cluster. Only configurable at
     # cluster creation time. If unspecified, STORAGE_SSD will be used.
     default_storage_type = messages.EnumField(StorageType, 8)
-
-
-class StorageType(messages.Enum):
-    # The storage type used is unspecified.
-    STORAGE_UNSPECIFIED = 0
-    # Data will be stored in SSD, providing low and consistent latencies.
-    STORAGE_SSD = 1
-    # Data will be stored in HDD, providing high and less predictable
-    # latencies.
-    STORAGE_HDD = 2
 
 
 class ListZonesRequest(messages.Message):
