@@ -2,6 +2,7 @@ from protorpc import remote
 
 import cluster_messages
 import dependency_messages
+import operations_messages
 
 
 class BigtableClusterService(remote.Service):
@@ -124,4 +125,4 @@ class BigtableClusterService(remote.Service):
         """
         # request type: cluster_messages.UndeleteClusterRequest
         # post: "/v1/{name=projects/*/zones/*/clusters/*}:undelete"
-        return dependency_messages.Operation()
+        return operations_messages.Operation()

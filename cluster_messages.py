@@ -1,6 +1,7 @@
 from protorpc import messages
 
 import dependency_messages
+import operations_messages
 
 
 class Zone(messages.Message):
@@ -48,7 +49,7 @@ class Cluster(messages.Message):
     # This cannot be set directly, only through CreateCluster, UpdateCluster,
     # or UndeleteCluster. Calls to these methods will be rejected if
     # "current_operation" is already set.
-    current_operation = messages.MessageField(dependency_messages.Operation, 3)
+    current_operation = messages.MessageField(operations_messages.Operation, 3)
     # The descriptive name for this cluster as it appears in UIs.
     # Must be unique per zone.
     display_name = messages.StringField(4)

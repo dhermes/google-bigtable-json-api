@@ -58,35 +58,6 @@ class Status(messages.Message):
     details = messages.MessageField(Any, 3, repeated=True)
 
 
-class Operation(messages.Message):
-    """Defines google.longrunning.Operation"""
-    # The name of the operation resource, which is only unique within the same
-    # service that originally returns it.
-    name = messages.StringField(1)
-    # Some service-specific metadata associated with the operation.  It typically
-    # contains progress information and common metadata such as create time.
-    # Some services may not provide such metadata.  Any method that returns a
-    # long-running operation should document the metadata type, if any.
-    metadata = messages.MessageField(Any, 2)
-    # If the value is false, it means the operation is still in progress.
-    # If true, the operation is completed and the `result` is available.
-    done = messages.BooleanField(3)
-
-    # NOTE: oneof, result{error, response}
-
-    # The error result of the operation in case of failure.
-    error = messages.MessageField(Status, 4)
-    # The normal response of the operation in case of success.  If the original
-    # method returns no data on success, such as `Delete`, the response will be
-    # `google.protobuf.Empty`.  If the original method is standard
-    # `Get`/`Create`/`Update`, the response should be the resource.  For other
-    # methods, the response should have the type `XxxResponse`, where `Xxx`
-    # is the original method name.  For example, if the original method name
-    # is `TakeSnapshot()`, the inferred response type will be
-    # `TakeSnapshotResponse`.
-    response = messages.MessageField(Any, 5)
-
-
 class Empty(messages.Message):
     """Defines google.protobuf.Empty."""
 

@@ -1,6 +1,7 @@
 from protorpc import messages
 
 import dependency_messages
+import operations_messages
 
 
 class Table(messages.Message):
@@ -14,7 +15,7 @@ class Table(messages.Message):
     # If this Table is in the process of being created, the Operation used to
     # track its progress. As long as this operation is present, the Table will
     # not accept any Table Admin or Read/Write requests.
-    current_operation = messages.MessageField(dependency_messages.Operation, 2)
+    current_operation = messages.MessageField(operations_messages.Operation, 2)
     # The column families configured for this table, mapped by column family id.
     # NEEDED: map<string, ColumnFamily> column_families = 3;
     # The granularity (e.g. MILLIS, MICROS) at which timestamps are stored in
@@ -149,7 +150,7 @@ class CreateColumnFamilyRequest(messages.Message):
     # table, e.g. "foobar" rather than "<table_name>/columnFamilies/foobar".
     column_family_id = messages.StringField(2)
     # The column family to create. The `name` field must be left blank.
-    column_family = messages.MessageField(columnFamily, 3)
+    column_family = messages.MessageField(ColumnFamily, 3)
 
 
 class DeleteColumnFamilyRequest(messages.Message):
