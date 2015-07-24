@@ -52,7 +52,7 @@ class RowRange(messages.Message):
     # Inclusive lower bound. If left empty, interpreted as the empty string.
     start_key = messages.BytesField(2)
     # Exclusive upper bound. If left empty, interpreted as infinity.
-    start_key = messages.BytesField(3)
+    end_key = messages.BytesField(3)
 
 
 class ColumnRange(messages.Message):

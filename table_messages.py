@@ -3,6 +3,9 @@ from protorpc import messages
 import dependency_messages
 import operations_messages
 
+raise ImportError('map<string, ColumnFamily> (in Table.column_families) is '
+                  'not supported by protorpc')
+
 
 class Table(messages.Message):
 
