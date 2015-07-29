@@ -1,0 +1,272 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/zhT5d5HzpiZgIsRksnPJafhvSRQ\"",
+ "discoveryVersion": "v1",
+ "id": "operations:v1",
+ "name": "operations",
+ "version": "v1",
+ "description": "Operations API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://my-api.appspot.com/_ah/api/operations/v1/",
+ "basePath": "/_ah/api/operations/v1/",
+ "rootUrl": "https://my-api.appspot.com/_ah/api/",
+ "servicePath": "operations/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "DependencyMessagesAny": {
+   "id": "DependencyMessagesAny",
+   "type": "object",
+   "description": "Defines google.protobuf.Any.",
+   "properties": {
+    "type_url": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DependencyMessagesEmpty": {
+   "id": "DependencyMessagesEmpty",
+   "type": "object",
+   "description": "Defines google.protobuf.Empty."
+  },
+  "DependencyMessagesStatus": {
+   "id": "DependencyMessagesStatus",
+   "type": "object",
+   "description": "Defines google.rpc.Status",
+   "properties": {
+    "code": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "details": {
+     "type": "array",
+     "description": "Defines google.protobuf.Any.",
+     "items": {
+      "$ref": "DependencyMessagesAny"
+     }
+    },
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "OperationsMessagesCancelOperationRequest": {
+   "id": "OperationsMessagesCancelOperationRequest",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "OperationsMessagesListOperationsResponse": {
+   "id": "OperationsMessagesListOperationsResponse",
+   "type": "object",
+   "properties": {
+    "next_page_token": {
+     "type": "string"
+    },
+    "operations": {
+     "type": "array",
+     "description": "Defines google.longrunning.Operation",
+     "items": {
+      "$ref": "OperationsMessagesOperation"
+     }
+    }
+   }
+  },
+  "OperationsMessagesOperation": {
+   "id": "OperationsMessagesOperation",
+   "type": "object",
+   "description": "Defines google.longrunning.Operation",
+   "properties": {
+    "done": {
+     "type": "boolean"
+    },
+    "error": {
+     "$ref": "DependencyMessagesStatus",
+     "description": "Defines google.rpc.Status"
+    },
+    "metadata": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    },
+    "name": {
+     "type": "string"
+    },
+    "response": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    }
+   }
+  }
+ },
+ "resources": {
+  "operations": {
+   "methods": {
+    "cancel": {
+     "id": "operations.operations.cancel",
+     "path": "{name}:cancel",
+     "httpMethod": "POST",
+     "description": "Cancel a long-running operation. Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients may use [Operations.GetOperation] or other methods to check whether the cancellation succeeded or the operation completed despite cancellation.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "OperationsMessagesCancelOperationRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "delete": {
+     "id": "operations.operations.delete",
+     "path": "{name}",
+     "httpMethod": "DELETE",
+     "description": "Delete a long-running operation. Deletes a long-running operation. It indicates the client is no longer interested in the operation result. It does not cancel the operation.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "get": {
+     "id": "operations.operations.get",
+     "path": "{name}",
+     "httpMethod": "GET",
+     "description": "Get a long-running operation. Gets the latest state of a long-running operation. Clients may use this method to poll the operation result at intervals as recommended by the API service.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "OperationsMessagesOperation"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "list": {
+     "id": "operations.operations.list",
+     "path": "operations",
+     "httpMethod": "GET",
+     "description": "List long-running operations. Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.",
+     "parameters": {
+      "filter": {
+       "type": "string",
+       "location": "query"
+      },
+      "name": {
+       "type": "string",
+       "location": "query"
+      },
+      "page_size": {
+       "type": "integer",
+       "format": "int32",
+       "location": "query"
+      },
+      "page_token": {
+       "type": "string",
+       "location": "query"
+      }
+     },
+     "response": {
+      "$ref": "OperationsMessagesListOperationsResponse"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  }
+ }
+}

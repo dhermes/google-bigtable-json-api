@@ -37,7 +37,7 @@ class Operation(messages.Message):
 # The request message for [Operations.GetOperation][google.longrunning.Operations.GetOperation].
 class GetOperationRequest(messages.Message):
     # The name of the operation resource.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 # The request message for [Operations.ListOperations][google.longrunning.Operations.ListOperations].
@@ -63,10 +63,10 @@ class ListOperationsResponse(messages.Message):
 # The request message for [Operations.CancelOperation][google.longrunning.Operations.CancelOperation].
 class CancelOperationRequest(messages.Message):
     # The name of the operation resource to be cancelled.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 # The request message for [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
 class DeleteOperationRequest(messages.Message):
     # The name of the operation resource to be deleted.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
