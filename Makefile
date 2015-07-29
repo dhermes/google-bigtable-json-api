@@ -1,10 +1,12 @@
+GOOGLE_CLOUD_SDK=$(HOME)/google-cloud-sdk
+
 help:
 	@echo 'Makefile for a google-bigtable-json-api         '
 	@echo '                                                '
 	@echo '   make generate   Generates REST discovery doc.'
 
 generate:
-	$(HOME)/google-cloud-sdk/platform/google_appengine/endpointscfg.py \
+	$(GOOGLE_CLOUD_SDK)/platform/google_appengine/endpointscfg.py \
 	    get_discovery_doc --format rest \
 	    table_service.BigtableTableService
 	mv bigtabletableadmin-v1.discovery bigtabletableadmin-v1.discovery.rest
