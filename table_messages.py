@@ -3,9 +3,6 @@ from protorpc import messages
 import dependency_messages
 import operations_messages
 
-raise ImportError('map<string, ColumnFamily> (in Table.column_families) is '
-                  'not supported by protorpc')
-
 
 class Table(messages.Message):
 
@@ -20,7 +17,9 @@ class Table(messages.Message):
     # not accept any Table Admin or Read/Write requests.
     current_operation = messages.MessageField(operations_messages.Operation, 2)
     # The column families configured for this table, mapped by column family id.
-    # NEEDED: map<string, ColumnFamily> column_families = 3;
+    # ACTUAL PROPERTY: map<string, ColumnFamily>
+    column_families = messages.MessageField(
+        'ColumnFamilyContainer', 3, repeated=True)
     # The granularity (e.g. MILLIS, MICROS) at which timestamps are stored in
     # this table. Timestamps not matching the granularity will be rejected.
     # Cannot be changed once the table is created.
@@ -90,9 +89,16 @@ class ColumnFamily(messages.Message):
     gc_rule = messages.MessageField(GcRule, 3)
 
 
+class ColumnFamilyContainer(messages.Message):
+    """This is a hack replacement for a MessageMap{string, ColumnFamily}."""
+
+    key = messages.StringField(1)
+    value = messages.MessageField(ColumnFamily, 2)
+
+
 class CreateTableRequest(messages.Message):
     # The unique name of the cluster in which to create the new table.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
     # The name by which the new table should be referred to within the cluster,
     # e.g. "foobar" rather than "<cluster_name>/tables/foobar".
     table_id = messages.StringField(2)
@@ -119,7 +125,7 @@ class CreateTableRequest(messages.Message):
 
 class ListTablesRequest(messages.Message):
     # The unique name of the cluster for which tables should be listed.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class ListTablesResponse(messages.Message):
@@ -130,17 +136,17 @@ class ListTablesResponse(messages.Message):
 
 class GetTableRequest(messages.Message):
     # The unique name of the requested table.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class DeleteTableRequest(messages.Message):
     # The unique name of the table to be deleted.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class RenameTableRequest(messages.Message):
     # The current unique name of the table.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
     # The new name by which the table should be referred to within its containing
     # cluster, e.g. "foobar" rather than "<cluster_name>/tables/foobar".
     new_id = messages.StringField(2)
@@ -148,7 +154,7 @@ class RenameTableRequest(messages.Message):
 
 class CreateColumnFamilyRequest(messages.Message):
     # The unique name of the table in which to create the new column family.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
     # The name by which the new column family should be referred to within the
     # table, e.g. "foobar" rather than "<table_name>/columnFamilies/foobar".
     column_family_id = messages.StringField(2)
@@ -158,4 +164,4 @@ class CreateColumnFamilyRequest(messages.Message):
 
 class DeleteColumnFamilyRequest(messages.Message):
     # The unique name of the column family to be deleted.
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)

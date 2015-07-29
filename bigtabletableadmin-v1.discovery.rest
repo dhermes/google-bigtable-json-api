@@ -1,0 +1,501 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/mY6zuprOlcmp2PFEgj9BttB_YDk\"",
+ "discoveryVersion": "v1",
+ "id": "bigtabletableadmin:v1",
+ "name": "bigtabletableadmin",
+ "version": "v1",
+ "description": "Bigtable Table API",
+ "ownerDomain": "google.com",
+ "ownerName": "Google",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://bigtabletableadmin.googleapis.com/_ah/api/bigtabletableadmin/v1/",
+ "basePath": "/_ah/api/bigtabletableadmin/v1/",
+ "rootUrl": "https://bigtabletableadmin.googleapis.com/_ah/api/",
+ "servicePath": "bigtabletableadmin/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "schemas": {
+  "DependencyMessagesAny": {
+   "id": "DependencyMessagesAny",
+   "type": "object",
+   "description": "Defines google.protobuf.Any.",
+   "properties": {
+    "type_url": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DependencyMessagesDuration": {
+   "id": "DependencyMessagesDuration",
+   "type": "object",
+   "description": "google.protobuf.Duration.",
+   "properties": {
+    "nanos": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "seconds": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "DependencyMessagesEmpty": {
+   "id": "DependencyMessagesEmpty",
+   "type": "object",
+   "description": "Defines google.protobuf.Empty."
+  },
+  "DependencyMessagesStatus": {
+   "id": "DependencyMessagesStatus",
+   "type": "object",
+   "description": "Defines google.rpc.Status",
+   "properties": {
+    "code": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "details": {
+     "type": "array",
+     "description": "Defines google.protobuf.Any.",
+     "items": {
+      "$ref": "DependencyMessagesAny"
+     }
+    },
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "OperationsMessagesOperation": {
+   "id": "OperationsMessagesOperation",
+   "type": "object",
+   "description": "Defines google.longrunning.Operation",
+   "properties": {
+    "done": {
+     "type": "boolean"
+    },
+    "error": {
+     "$ref": "DependencyMessagesStatus",
+     "description": "Defines google.rpc.Status"
+    },
+    "metadata": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    },
+    "name": {
+     "type": "string"
+    },
+    "response": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    }
+   }
+  },
+  "TableMessagesColumnFamily": {
+   "id": "TableMessagesColumnFamily",
+   "type": "object",
+   "properties": {
+    "gc_expression": {
+     "type": "string"
+    },
+    "gc_rule": {
+     "$ref": "TableMessagesGcRule"
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "TableMessagesColumnFamilyContainer": {
+   "id": "TableMessagesColumnFamilyContainer",
+   "type": "object",
+   "description": "This is a hack replacement for a MessageMap{string, ColumnFamily}.",
+   "properties": {
+    "key": {
+     "type": "string"
+    },
+    "value": {
+     "$ref": "TableMessagesColumnFamily"
+    }
+   }
+  },
+  "TableMessagesCreateColumnFamilyRequest": {
+   "id": "TableMessagesCreateColumnFamilyRequest",
+   "type": "object",
+   "properties": {
+    "column_family": {
+     "$ref": "TableMessagesColumnFamily"
+    },
+    "column_family_id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "TableMessagesCreateTableRequest": {
+   "id": "TableMessagesCreateTableRequest",
+   "type": "object",
+   "properties": {
+    "initial_split_keys": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "name": {
+     "type": "string"
+    },
+    "table": {
+     "$ref": "TableMessagesTable"
+    },
+    "table_id": {
+     "type": "string"
+    }
+   }
+  },
+  "TableMessagesGcRule": {
+   "id": "TableMessagesGcRule",
+   "type": "object",
+   "properties": {
+    "intersection": {
+     "$ref": "TableMessagesGcRuleIntersection"
+    },
+    "max_age": {
+     "$ref": "DependencyMessagesDuration",
+     "description": "google.protobuf.Duration."
+    },
+    "max_num_versions": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "union": {
+     "$ref": "TableMessagesGcRuleUnion"
+    }
+   }
+  },
+  "TableMessagesGcRuleIntersection": {
+   "id": "TableMessagesGcRuleIntersection",
+   "type": "object",
+   "properties": {
+    "rules": {
+     "type": "array",
+     "items": {
+      "$ref": "TableMessagesGcRule"
+     }
+    }
+   }
+  },
+  "TableMessagesGcRuleUnion": {
+   "id": "TableMessagesGcRuleUnion",
+   "type": "object",
+   "properties": {
+    "rules": {
+     "type": "array",
+     "items": {
+      "$ref": "TableMessagesGcRule"
+     }
+    }
+   }
+  },
+  "TableMessagesListTablesResponse": {
+   "id": "TableMessagesListTablesResponse",
+   "type": "object",
+   "properties": {
+    "tables": {
+     "type": "array",
+     "items": {
+      "$ref": "TableMessagesTable"
+     }
+    }
+   }
+  },
+  "TableMessagesRenameTableRequest": {
+   "id": "TableMessagesRenameTableRequest",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "new_id": {
+     "type": "string"
+    }
+   }
+  },
+  "TableMessagesTable": {
+   "id": "TableMessagesTable",
+   "type": "object",
+   "properties": {
+    "column_families": {
+     "type": "array",
+     "description": "This is a hack replacement for a MessageMap{string, ColumnFamily}.",
+     "items": {
+      "$ref": "TableMessagesColumnFamilyContainer"
+     }
+    },
+    "current_operation": {
+     "$ref": "OperationsMessagesOperation",
+     "description": "Defines google.longrunning.Operation"
+    },
+    "granularity": {
+     "type": "string",
+     "enum": [
+      "MILLIS"
+     ],
+     "enumDescriptions": [
+      ""
+     ]
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "TableServiceColumnFamily": {
+   "id": "TableServiceColumnFamily",
+   "type": "object",
+   "properties": {
+    "gc_expression": {
+     "type": "string"
+    },
+    "gc_rule": {
+     "$ref": "TableMessagesGcRule"
+    }
+   }
+  }
+ },
+ "resources": {
+  "tables": {
+   "methods": {
+    "create": {
+     "id": "bigtabletableadmin.tables.create",
+     "path": "{name}/tables",
+     "httpMethod": "POST",
+     "description": "Create table. Creates a new table, to be served from a specified cluster. The table can be created with a full set of initial column families, specified in the request.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "TableMessagesCreateTableRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "TableMessagesTable"
+     }
+    },
+    "delete": {
+     "id": "bigtabletableadmin.tables.delete",
+     "path": "{name}",
+     "httpMethod": "DELETE",
+     "description": "Permanently deletes a specified table and all of its data.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     }
+    },
+    "get": {
+     "id": "bigtabletableadmin.tables.get",
+     "path": "{name}",
+     "httpMethod": "GET",
+     "description": "Gets the schema of the specified table. This includes its column families.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "TableMessagesTable"
+     }
+    },
+    "list": {
+     "id": "bigtabletableadmin.tables.list",
+     "path": "{name}/tables",
+     "httpMethod": "GET",
+     "description": "Lists the names of all tables served from a specified cluster.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "TableMessagesListTablesResponse"
+     }
+    },
+    "rename": {
+     "id": "bigtabletableadmin.tables.rename",
+     "path": "{name}:rename",
+     "httpMethod": "POST",
+     "description": "Changes the name of a specified table. Cannot be used to move tables between clusters, zones, or projects.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "TableMessagesRenameTableRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     }
+    }
+   },
+   "resources": {
+    "columnfamilies": {
+     "methods": {
+      "create": {
+       "id": "bigtabletableadmin.tables.columnfamilies.create",
+       "path": "{name}/columnFamilies",
+       "httpMethod": "POST",
+       "description": "Creates a new column family within a specified table.",
+       "parameters": {
+        "name": {
+         "type": "string",
+         "required": true,
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "name"
+       ],
+       "request": {
+        "$ref": "TableMessagesCreateColumnFamilyRequest",
+        "parameterName": "resource"
+       },
+       "response": {
+        "$ref": "TableMessagesColumnFamily"
+       }
+      },
+      "delete": {
+       "id": "bigtabletableadmin.tables.columnfamilies.delete",
+       "path": "{name}",
+       "httpMethod": "DELETE",
+       "description": "Permanently deletes a specified column family and all of its data.",
+       "parameters": {
+        "name": {
+         "type": "string",
+         "required": true,
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "name"
+       ],
+       "response": {
+        "$ref": "DependencyMessagesEmpty"
+       }
+      },
+      "update": {
+       "id": "bigtabletableadmin.tables.columnfamilies.update",
+       "path": "{name}",
+       "httpMethod": "PUT",
+       "description": "Changes the configuration of a specified column family.",
+       "parameters": {
+        "name": {
+         "type": "string",
+         "required": true,
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "name"
+       ],
+       "request": {
+        "$ref": "TableServiceColumnFamily",
+        "parameterName": "resource"
+       },
+       "response": {
+        "$ref": "TableMessagesColumnFamily"
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
