@@ -10,27 +10,27 @@ import table_messages
 
 CREATE_TABLE_CONTAINER = endpoints.ResourceContainer(
     table_messages.CreateTableRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 LIST_TABLES_CONTAINER = endpoints.ResourceContainer(
     table_messages.ListTablesRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 GET_TABLE_CONTAINER = endpoints.ResourceContainer(
     table_messages.GetTableRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 DELETE_TABLE_CONTAINER = endpoints.ResourceContainer(
     table_messages.DeleteTableRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 RENAME_TABLE_CONTAINER = endpoints.ResourceContainer(
     table_messages.RenameTableRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 CREATE_COLUMN_FAMILY_CONTAINER = endpoints.ResourceContainer(
     table_messages.CreateColumnFamilyRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 
 # Local version of ColumnFamily with no name property, to avoid
@@ -41,11 +41,11 @@ class ColumnFamily(messages.Message):
 
 UPDATE_COLUMN_FAMILY_CONTAINER = endpoints.ResourceContainer(
     ColumnFamily,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 DELETE_COLUMN_FAMILY_CONTAINER = endpoints.ResourceContainer(
     table_messages.DeleteColumnFamilyRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 
 

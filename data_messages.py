@@ -325,7 +325,7 @@ class ReadModifyWriteRule(messages.Message):
 
 class ReadRowsRequest(messages.Message):
     # The unique name of the table from which to read.
-    table_name = messages.StringField(1)
+    table_name = messages.StringField(1, required=True)
 
     # If neither row_key nor row_range is set, reads from all rows.
     # NOTE: oneof, target{row_key, row_range}
@@ -381,7 +381,7 @@ class ReadRowsResponse(messages.Message):
 
 class SampleRowKeysRequest(messages.Message):
     # The unique name of the table from which to sample row keys.
-    table_name = messages.StringField(1)
+    table_name = messages.StringField(1, required=True)
 
 
 class SampleRowKeysResponse(messages.Message):
@@ -402,9 +402,9 @@ class SampleRowKeysResponse(messages.Message):
 
 class MutateRowRequest(messages.Message):
     # The unique name of the table to which the mutation should be applied.
-    table_name = messages.StringField(1)
+    table_name = messages.StringField(1, required=True)
     # The key of the row to which the mutation should be applied.
-    row_key = messages.BytesField(2)
+    row_key = messages.BytesField(2, required=True)
     # Changes to be atomically applied to the specified row. Entries are applied
     # in order, meaning that earlier mutations can be masked by later ones.
     # Must contain at least one entry and at most 100000.
@@ -414,9 +414,9 @@ class MutateRowRequest(messages.Message):
 class CheckAndMutateRowRequest(messages.Message):
     # The unique name of the table to which the conditional mutation should be
     # applied.
-    table_name = messages.StringField(1)
+    table_name = messages.StringField(1, required=True)
     # The key of the row to which the conditional mutation should be applied.
-    row_key = messages.BytesField(2)
+    row_key = messages.BytesField(2, required=True)
     # The filter to be applied to the contents of the specified row. Depending
     # on whether or not any results are yielded, either "true_mutations" or
     # "false_mutations" will be executed. If unset, checks that the row contains
@@ -445,9 +445,9 @@ class CheckAndMutateRowResponse(messages.Message):
 class ReadModifyWriteRowRequest(messages.Message):
     # The unique name of the table to which the read/modify/write rules should be
     # applied.
-    table_name = messages.StringField(1)
+    table_name = messages.StringField(1, required=True)
     # The key of the row to which the read/modify/write rules should be applied.
-    row_key = messages.BytesField(2)
+    row_key = messages.BytesField(2, required=True)
     # Rules specifying how the specified row's contents are to be transformed
     # into writes. Entries are applied in order, meaning that earlier rules will
     # affect the results of later ones.

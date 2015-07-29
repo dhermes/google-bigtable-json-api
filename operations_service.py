@@ -9,15 +9,15 @@ import operations_messages
 
 GET_OPERATION_CONTAINER = endpoints.ResourceContainer(
     operations_messages.GetOperationRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 CANCEL_OPERATION_CONTAINER = endpoints.ResourceContainer(
     operations_messages.CancelOperationRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 DELETE_OPERATION_CONTAINER = endpoints.ResourceContainer(
     operations_messages.DeleteOperationRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 
 

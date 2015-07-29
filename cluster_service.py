@@ -11,19 +11,19 @@ from scopes import ADMIN_SCOPE
 
 LIST_ZONES_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.ListZonesRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 GET_CLUSTER_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.GetClusterRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 LIST_CLUSTERS_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.ListClustersRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 CREATE_CLUSTER_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.CreateClusterRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 
 # Local version of Cluster with no name property, to avoid
@@ -40,15 +40,15 @@ class Cluster(messages.Message):
 
 UPDATE_CLUSTER_CONTAINER = endpoints.ResourceContainer(
     Cluster,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 DELETE_CLUSTER_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.DeleteClusterRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 UNDELETE_CLUSTER_CONTAINER = endpoints.ResourceContainer(
     cluster_messages.UndeleteClusterRequest,
-    name = messages.StringField(1, required=True),
+    name=messages.StringField(1, required=True),
 )
 
 

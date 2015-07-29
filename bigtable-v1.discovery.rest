@@ -1,0 +1,679 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/xG5e3qDFEgijN4aN54SWehlr-c8\"",
+ "discoveryVersion": "v1",
+ "id": "bigtable:v1",
+ "name": "bigtable",
+ "version": "v1",
+ "description": "Bigtable Data API",
+ "ownerDomain": "google.com",
+ "ownerName": "Google",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://bigtable.googleapis.com/_ah/api/bigtable/v1/",
+ "basePath": "/_ah/api/bigtable/v1/",
+ "rootUrl": "https://bigtable.googleapis.com/_ah/api/",
+ "servicePath": "bigtable/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "schemas": {
+  "DataMessagesCell": {
+   "id": "DataMessagesCell",
+   "type": "object",
+   "properties": {
+    "timestamp_micros": {
+     "type": "string",
+     "format": "int64"
+    },
+    "value": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesCheckAndMutateRowRequest": {
+   "id": "DataMessagesCheckAndMutateRowRequest",
+   "type": "object",
+   "properties": {
+    "false_mutations": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesMutation"
+     }
+    },
+    "predicate_filter": {
+     "$ref": "DataMessagesRowFilter"
+    },
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "table_name": {
+     "type": "string"
+    },
+    "true_mutations": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesMutation"
+     }
+    }
+   }
+  },
+  "DataMessagesCheckAndMutateRowResponse": {
+   "id": "DataMessagesCheckAndMutateRowResponse",
+   "type": "object",
+   "properties": {
+    "predicate_matched": {
+     "type": "boolean"
+    }
+   }
+  },
+  "DataMessagesColumn": {
+   "id": "DataMessagesColumn",
+   "type": "object",
+   "properties": {
+    "cells": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesCell"
+     }
+    },
+    "qualifier": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesColumnRange": {
+   "id": "DataMessagesColumnRange",
+   "type": "object",
+   "properties": {
+    "end_qualifier_exclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "end_qualifier_inclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "family_name": {
+     "type": "string"
+    },
+    "start_qualifier_exclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "start_qualifier_inclusive": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesFamily": {
+   "id": "DataMessagesFamily",
+   "type": "object",
+   "properties": {
+    "columns": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesColumn"
+     }
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "DataMessagesMutateRowRequest": {
+   "id": "DataMessagesMutateRowRequest",
+   "type": "object",
+   "properties": {
+    "mutations": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesMutation"
+     }
+    },
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "table_name": {
+     "type": "string"
+    }
+   }
+  },
+  "DataMessagesMutation": {
+   "id": "DataMessagesMutation",
+   "type": "object",
+   "properties": {
+    "delete_from_column": {
+     "$ref": "DataMessagesMutationDeleteFromColumn"
+    },
+    "delete_from_family": {
+     "$ref": "DataMessagesMutationDeleteFromFamily"
+    },
+    "delete_from_row": {
+     "$ref": "DataMessagesMutationDeleteFromRow"
+    },
+    "set_cell": {
+     "$ref": "DataMessagesMutationSetCell"
+    }
+   }
+  },
+  "DataMessagesMutationDeleteFromColumn": {
+   "id": "DataMessagesMutationDeleteFromColumn",
+   "type": "object",
+   "properties": {
+    "column_qualifier": {
+     "type": "string",
+     "format": "byte"
+    },
+    "family_name": {
+     "type": "string"
+    },
+    "time_range": {
+     "$ref": "DataMessagesTimestampRange"
+    }
+   }
+  },
+  "DataMessagesMutationDeleteFromFamily": {
+   "id": "DataMessagesMutationDeleteFromFamily",
+   "type": "object",
+   "properties": {
+    "family_name": {
+     "type": "string"
+    }
+   }
+  },
+  "DataMessagesMutationDeleteFromRow": {
+   "id": "DataMessagesMutationDeleteFromRow",
+   "type": "object"
+  },
+  "DataMessagesMutationSetCell": {
+   "id": "DataMessagesMutationSetCell",
+   "type": "object",
+   "properties": {
+    "column_qualifier": {
+     "type": "string",
+     "format": "byte"
+    },
+    "family_name": {
+     "type": "string"
+    },
+    "timestamp_micros": {
+     "type": "string",
+     "format": "int64"
+    },
+    "value": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesReadModifyWriteRowRequest": {
+   "id": "DataMessagesReadModifyWriteRowRequest",
+   "type": "object",
+   "properties": {
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "rules": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesReadModifyWriteRule"
+     }
+    },
+    "table_name": {
+     "type": "string"
+    }
+   }
+  },
+  "DataMessagesReadModifyWriteRule": {
+   "id": "DataMessagesReadModifyWriteRule",
+   "type": "object",
+   "properties": {
+    "append_value": {
+     "type": "string",
+     "format": "byte"
+    },
+    "column_qualifier": {
+     "type": "string",
+     "format": "byte"
+    },
+    "family_name": {
+     "type": "string"
+    },
+    "increment_amount": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "DataMessagesReadRowsRequest": {
+   "id": "DataMessagesReadRowsRequest",
+   "type": "object",
+   "properties": {
+    "allow_row_interleaving": {
+     "type": "boolean"
+    },
+    "filter": {
+     "$ref": "DataMessagesRowFilter"
+    },
+    "num_rows_limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "row_range": {
+     "$ref": "DataMessagesRowRange"
+    },
+    "table_name": {
+     "type": "string"
+    }
+   }
+  },
+  "DataMessagesReadRowsResponse": {
+   "id": "DataMessagesReadRowsResponse",
+   "type": "object",
+   "properties": {
+    "chunks": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesReadRowsResponseChunk"
+     }
+    },
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesReadRowsResponseChunk": {
+   "id": "DataMessagesReadRowsResponseChunk",
+   "type": "object",
+   "properties": {
+    "commit_row": {
+     "type": "boolean"
+    },
+    "reset_row": {
+     "type": "boolean"
+    },
+    "row_contents": {
+     "$ref": "DataMessagesFamily"
+    }
+   }
+  },
+  "DataMessagesRow": {
+   "id": "DataMessagesRow",
+   "type": "object",
+   "properties": {
+    "families": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesFamily"
+     }
+    },
+    "key": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesRowFilter": {
+   "id": "DataMessagesRowFilter",
+   "type": "object",
+   "properties": {
+    "cells_per_column_limit_filter": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "cells_per_row_limit_filter": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "cells_per_row_offset_filter": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "chain": {
+     "$ref": "DataMessagesRowFilterChain"
+    },
+    "column_qualifier_regex_filter": {
+     "type": "string",
+     "format": "byte"
+    },
+    "column_range_filter": {
+     "$ref": "DataMessagesColumnRange"
+    },
+    "condition": {
+     "$ref": "DataMessagesRowFilterCondition"
+    },
+    "family_name_regex_filter": {
+     "type": "string"
+    },
+    "interleave": {
+     "$ref": "DataMessagesRowFilterInterleave"
+    },
+    "row_key_regex_filter": {
+     "type": "string",
+     "format": "byte"
+    },
+    "row_sample_filter": {
+     "type": "number",
+     "format": "double"
+    },
+    "strip_value_transformer": {
+     "type": "boolean"
+    },
+    "timestamp_range_filter": {
+     "$ref": "DataMessagesTimestampRange"
+    },
+    "value_range_filter": {
+     "$ref": "DataMessagesValueRange"
+    },
+    "value_regex_filter": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesRowFilterChain": {
+   "id": "DataMessagesRowFilterChain",
+   "type": "object",
+   "properties": {
+    "filters": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesRowFilter"
+     }
+    }
+   }
+  },
+  "DataMessagesRowFilterCondition": {
+   "id": "DataMessagesRowFilterCondition",
+   "type": "object",
+   "properties": {
+    "false_filter": {
+     "$ref": "DataMessagesRowFilter"
+    },
+    "predicate_filter": {
+     "$ref": "DataMessagesRowFilter"
+    },
+    "true_filter": {
+     "$ref": "DataMessagesRowFilter"
+    }
+   }
+  },
+  "DataMessagesRowFilterInterleave": {
+   "id": "DataMessagesRowFilterInterleave",
+   "type": "object",
+   "properties": {
+    "filters": {
+     "type": "array",
+     "items": {
+      "$ref": "DataMessagesRowFilter"
+     }
+    }
+   }
+  },
+  "DataMessagesRowRange": {
+   "id": "DataMessagesRowRange",
+   "type": "object",
+   "properties": {
+    "end_key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "start_key": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesSampleRowKeysResponse": {
+   "id": "DataMessagesSampleRowKeysResponse",
+   "type": "object",
+   "properties": {
+    "offset_bytes": {
+     "type": "string",
+     "format": "int64"
+    },
+    "row_key": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DataMessagesTimestampRange": {
+   "id": "DataMessagesTimestampRange",
+   "type": "object",
+   "properties": {
+    "end_timestamp_micros": {
+     "type": "string",
+     "format": "int64"
+    },
+    "start_timestamp_micros": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "DataMessagesValueRange": {
+   "id": "DataMessagesValueRange",
+   "type": "object",
+   "properties": {
+    "end_value_exclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "end_value_inclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "start_value_exclusive": {
+     "type": "string",
+     "format": "byte"
+    },
+    "start_value_inclusive": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DependencyMessagesEmpty": {
+   "id": "DependencyMessagesEmpty",
+   "type": "object",
+   "description": "Defines google.protobuf.Empty."
+  }
+ },
+ "resources": {
+  "rows": {
+   "methods": {
+    "checkandmutate": {
+     "id": "bigtable.rows.checkandmutate",
+     "path": "{table_name}/rows/{row_key}:checkAndMutate",
+     "httpMethod": "POST",
+     "description": "Check and mutate row. Mutates a row atomically based on the output of a predicate Reader filter.",
+     "parameters": {
+      "row_key": {
+       "type": "string",
+       "required": true,
+       "format": "byte",
+       "location": "path"
+      },
+      "table_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "table_name",
+      "row_key"
+     ],
+     "request": {
+      "$ref": "DataMessagesCheckAndMutateRowRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DataMessagesCheckAndMutateRowResponse"
+     }
+    },
+    "mutate": {
+     "id": "bigtable.rows.mutate",
+     "path": "{table_name}/rows/{row_key}:mutate",
+     "httpMethod": "POST",
+     "description": "Mutate row. Mutates a row atomically. Cells already present in the row are left unchanged unless explicitly changed by 'mutation'.",
+     "parameters": {
+      "row_key": {
+       "type": "string",
+       "required": true,
+       "format": "byte",
+       "location": "path"
+      },
+      "table_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "table_name",
+      "row_key"
+     ],
+     "request": {
+      "$ref": "DataMessagesMutateRowRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     }
+    },
+    "read": {
+     "id": "bigtable.rows.read",
+     "path": "{table_name}/rows:read",
+     "httpMethod": "POST",
+     "description": "Read rows. NOTE: This is a \"stream\" method and not likely to work over HTTP/1.1. Streams back the contents of all requested rows, optionally applying the same Reader filter to each. Depending on their size, rows may be broken up across multiple responses, but atomicity of each row will still be preserved.",
+     "parameters": {
+      "table_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "table_name"
+     ],
+     "request": {
+      "$ref": "DataMessagesReadRowsRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DataMessagesReadRowsResponse"
+     }
+    },
+    "readmodifywrite": {
+     "id": "bigtable.rows.readmodifywrite",
+     "path": "{table_name}/rows/{row_key}:readModifyWrite",
+     "httpMethod": "POST",
+     "description": "Read, modify and write row. Modifies a row atomically, reading the latest existing timestamp/value from the specified columns and writing a new value at max(existing timestamp, current server time) based on pre-defined read/modify/write rules. Returns the new contents of all modified cells.",
+     "parameters": {
+      "row_key": {
+       "type": "string",
+       "required": true,
+       "format": "byte",
+       "location": "path"
+      },
+      "table_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "table_name",
+      "row_key"
+     ],
+     "request": {
+      "$ref": "DataMessagesReadModifyWriteRowRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "DataMessagesRow"
+     }
+    },
+    "samplekeys": {
+     "id": "bigtable.rows.samplekeys",
+     "path": "{table_name}/rows:sampleKeys",
+     "httpMethod": "GET",
+     "description": "Sample row keys. NOTE: This is a \"stream\" method and not likely to work over HTTP/1.1. Returns a sample of row keys in the table. The returned row keys will delimit contiguous sections of the table of approximately equal size, which can be used to break up the data for distributed tasks like mapreduces.",
+     "parameters": {
+      "table_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "table_name"
+     ],
+     "response": {
+      "$ref": "DataMessagesSampleRowKeysResponse"
+     }
+    }
+   }
+  }
+ }
+}
