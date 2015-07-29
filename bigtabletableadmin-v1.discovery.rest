@@ -1,11 +1,11 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/mY6zuprOlcmp2PFEgj9BttB_YDk\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/ng9pWul0V4aNePPR680S8xpsOo8\"",
  "discoveryVersion": "v1",
  "id": "bigtabletableadmin:v1",
  "name": "bigtabletableadmin",
  "version": "v1",
- "description": "Bigtable Table API",
+ "description": "Bigtable Table Admin API",
  "ownerDomain": "google.com",
  "ownerName": "Google",
  "icons": {

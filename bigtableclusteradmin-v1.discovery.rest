@@ -1,0 +1,489 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/2AedT1WBUDKLw5dVm7f7-A956RM\"",
+ "discoveryVersion": "v1",
+ "id": "bigtableclusteradmin:v1",
+ "name": "bigtableclusteradmin",
+ "version": "v1",
+ "description": "Bigtable Cluster Admin API",
+ "ownerDomain": "google.com",
+ "ownerName": "Google",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://bigtableclusteradmin.googleapis.com/_ah/api/bigtableclusteradmin/v1/",
+ "basePath": "/_ah/api/bigtableclusteradmin/v1/",
+ "rootUrl": "https://bigtableclusteradmin.googleapis.com/_ah/api/",
+ "servicePath": "bigtableclusteradmin/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "schemas": {
+  "ClusterMessagesCluster": {
+   "id": "ClusterMessagesCluster",
+   "type": "object",
+   "properties": {
+    "current_operation": {
+     "$ref": "OperationsMessagesOperation",
+     "description": "Defines google.longrunning.Operation"
+    },
+    "default_storage_type": {
+     "type": "string",
+     "enum": [
+      "STORAGE_HDD",
+      "STORAGE_SSD",
+      "STORAGE_UNSPECIFIED"
+     ],
+     "enumDescriptions": [
+      "",
+      "",
+      ""
+     ]
+    },
+    "delete_time": {
+     "$ref": "DependencyMessagesTimestamp",
+     "description": "Defines google.protobuf.Timestamp."
+    },
+    "display_name": {
+     "type": "string"
+    },
+    "hdd_bytes": {
+     "type": "string",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "serve_nodes": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "ssd_bytes": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "ClusterMessagesCreateClusterRequest": {
+   "id": "ClusterMessagesCreateClusterRequest",
+   "type": "object",
+   "properties": {
+    "cluster": {
+     "$ref": "ClusterMessagesCluster"
+    },
+    "cluster_id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "ClusterMessagesListClustersResponse": {
+   "id": "ClusterMessagesListClustersResponse",
+   "type": "object",
+   "properties": {
+    "clusters": {
+     "type": "array",
+     "items": {
+      "$ref": "ClusterMessagesCluster"
+     }
+    },
+    "failed_zones": {
+     "type": "array",
+     "items": {
+      "$ref": "ClusterMessagesZone"
+     }
+    }
+   }
+  },
+  "ClusterMessagesListZonesResponse": {
+   "id": "ClusterMessagesListZonesResponse",
+   "type": "object",
+   "properties": {
+    "zones": {
+     "type": "array",
+     "items": {
+      "$ref": "ClusterMessagesZone"
+     }
+    }
+   }
+  },
+  "ClusterMessagesUndeleteClusterRequest": {
+   "id": "ClusterMessagesUndeleteClusterRequest",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "ClusterMessagesZone": {
+   "id": "ClusterMessagesZone",
+   "type": "object",
+   "properties": {
+    "display_name": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "status": {
+     "type": "string",
+     "enum": [
+      "EMERGENCY_MAINENANCE",
+      "OK",
+      "PLANNED_MAINTENANCE",
+      "UNKNOWN"
+     ],
+     "enumDescriptions": [
+      "",
+      "",
+      "",
+      ""
+     ]
+    }
+   }
+  },
+  "ClusterServiceCluster": {
+   "id": "ClusterServiceCluster",
+   "type": "object",
+   "properties": {
+    "current_operation": {
+     "$ref": "OperationsMessagesOperation",
+     "description": "Defines google.longrunning.Operation"
+    },
+    "default_storage_type": {
+     "type": "string",
+     "enum": [
+      "STORAGE_HDD",
+      "STORAGE_SSD",
+      "STORAGE_UNSPECIFIED"
+     ],
+     "enumDescriptions": [
+      "",
+      "",
+      ""
+     ]
+    },
+    "delete_time": {
+     "$ref": "DependencyMessagesTimestamp",
+     "description": "Defines google.protobuf.Timestamp."
+    },
+    "display_name": {
+     "type": "string"
+    },
+    "hdd_bytes": {
+     "type": "string",
+     "format": "int64"
+    },
+    "serve_nodes": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "ssd_bytes": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "DependencyMessagesAny": {
+   "id": "DependencyMessagesAny",
+   "type": "object",
+   "description": "Defines google.protobuf.Any.",
+   "properties": {
+    "type_url": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DependencyMessagesEmpty": {
+   "id": "DependencyMessagesEmpty",
+   "type": "object",
+   "description": "Defines google.protobuf.Empty."
+  },
+  "DependencyMessagesStatus": {
+   "id": "DependencyMessagesStatus",
+   "type": "object",
+   "description": "Defines google.rpc.Status",
+   "properties": {
+    "code": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "details": {
+     "type": "array",
+     "description": "Defines google.protobuf.Any.",
+     "items": {
+      "$ref": "DependencyMessagesAny"
+     }
+    },
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "DependencyMessagesTimestamp": {
+   "id": "DependencyMessagesTimestamp",
+   "type": "object",
+   "description": "Defines google.protobuf.Timestamp.",
+   "properties": {
+    "nanos": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "seconds": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "OperationsMessagesOperation": {
+   "id": "OperationsMessagesOperation",
+   "type": "object",
+   "description": "Defines google.longrunning.Operation",
+   "properties": {
+    "done": {
+     "type": "boolean"
+    },
+    "error": {
+     "$ref": "DependencyMessagesStatus",
+     "description": "Defines google.rpc.Status"
+    },
+    "metadata": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    },
+    "name": {
+     "type": "string"
+    },
+    "response": {
+     "$ref": "DependencyMessagesAny",
+     "description": "Defines google.protobuf.Any."
+    }
+   }
+  }
+ },
+ "resources": {
+  "clusters": {
+   "methods": {
+    "create": {
+     "id": "bigtableclusteradmin.clusters.create",
+     "path": "{name}/clusters",
+     "httpMethod": "POST",
+     "description": "Creates a cluster. Creates a cluster and begins preparing it to begin serving. The returned cluster embeds as its \"current_operation\" a long-running operation which can be used to track the progress of turning up the new cluster. Immediately upon completion of this request: * The cluster will be readable via the API, with all requested attributes but no allocated resources. Until completion of the embedded operation: * Cancelling the operation will render the cluster immediately unreadable via the API. * All other attempts to modify or delete the cluster will be rejected. Upon completion of the embedded operation: * Billing for all successfully-allocated resources will begin (some types may have lower than the requested levels). * New tables can be created in the cluster. * The cluster's allocated resource levels will be readable via the API. The embedded operation's \"metadata\" field type is [CreateClusterMetadata][google.bigtable.admin.cluster.v1.CreateClusterMetadata] The embedded operation's \"response\" field type is [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "ClusterMessagesCreateClusterRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "ClusterMessagesCluster"
+     }
+    },
+    "delete": {
+     "id": "bigtableclusteradmin.clusters.delete",
+     "path": "{name}",
+     "httpMethod": "DELETE",
+     "description": "Delete cluster. Marks a cluster and all of its tables for permanent deletion in 7 days. Immediately upon completion of the request: * Billing will cease for all of the cluster's reserved resources. * The cluster's \"delete_time\" field will be set 7 days in the future. Soon afterward: * All tables within the cluster will become unavailable. Prior to the cluster's \"delete_time\": * The cluster can be recovered with a call to UndeleteCluster. * All other attempts to modify or delete the cluster will be rejected. At the cluster's \"delete_time\": * The cluster and *all of its tables* will immediately and irrevocably disappear from the API, and their data will be permanently deleted.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "DependencyMessagesEmpty"
+     }
+    },
+    "get": {
+     "id": "bigtableclusteradmin.clusters.get",
+     "path": "{name}",
+     "httpMethod": "GET",
+     "description": "Gets information about a particular cluster.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "ClusterMessagesCluster"
+     }
+    },
+    "list": {
+     "id": "bigtableclusteradmin.clusters.list",
+     "path": "{name}/aggregated/clusters",
+     "httpMethod": "GET",
+     "description": "Lists clusters. Lists all clusters in the given project, along with any zones for which cluster information could not be retrieved.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "ClusterMessagesListClustersResponse"
+     }
+    },
+    "listzones": {
+     "id": "bigtableclusteradmin.clusters.listzones",
+     "path": "{name}/zones",
+     "httpMethod": "GET",
+     "description": "Lists the supported zones for the given project.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "response": {
+      "$ref": "ClusterMessagesListZonesResponse"
+     }
+    },
+    "patch": {
+     "id": "bigtableclusteradmin.clusters.patch",
+     "path": "{name}",
+     "httpMethod": "PATCH",
+     "description": "Updates cluster. Updates a cluster, and begins allocating or releasing resources as requested. The returned cluster embeds as its \"current_operation\" a long-running operation which can be used to track the progress of updating the cluster. Immediately upon completion of this request: * For resource types where a decrease in the cluster's allocation has been requested, billing will be based on the newly-requested level. Until completion of the embedded operation: * Cancelling the operation will set its metadata's \"cancelled_at_time\", and begin restoring resources to their pre-request values. The operation is guaranteed to succeed at undoing all resource changes, after which point it will terminate with a CANCELLED status. * All other attempts to modify or delete the cluster will be rejected. * Reading the cluster via the API will continue to give the pre-request resource levels. Upon completion of the embedded operation: * Billing will begin for all successfully-allocated resources (some types may have lower than the requested levels). * All newly-reserved resources will be available for serving the cluster's tables. * The cluster's new resource levels will be readable via the API. [UpdateClusterMetadata][google.bigtable.admin.cluster.v1.UpdateClusterMetadata] The embedded operation's \"response\" field type is [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful. . This method supports patch semantics.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "ClusterServiceCluster"
+     },
+     "response": {
+      "$ref": "ClusterMessagesCluster"
+     }
+    },
+    "undelete": {
+     "id": "bigtableclusteradmin.clusters.undelete",
+     "path": "{name}:undelete",
+     "httpMethod": "POST",
+     "description": "Undelete cluster. Cancels the scheduled deletion of an cluster and begins preparing it to resume serving. The returned operation will also be embedded as the cluster's \"current_operation\". Immediately upon completion of this request: * The cluster's \"delete_time\" field will be unset, protecting it from automatic deletion. Until completion of the returned operation: * The operation cannot be cancelled. Upon completion of the returned operation: * Billing for the cluster's resources will resume. * All tables within the cluster will be available. [UndeleteClusterMetadata][google.bigtable.admin.cluster.v1.UndeleteClusterMetadata] The embedded operation's \"response\" field type is [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "ClusterMessagesUndeleteClusterRequest",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "OperationsMessagesOperation"
+     }
+    },
+    "update": {
+     "id": "bigtableclusteradmin.clusters.update",
+     "path": "{name}",
+     "httpMethod": "PUT",
+     "description": "Updates cluster. Updates a cluster, and begins allocating or releasing resources as requested. The returned cluster embeds as its \"current_operation\" a long-running operation which can be used to track the progress of updating the cluster. Immediately upon completion of this request: * For resource types where a decrease in the cluster's allocation has been requested, billing will be based on the newly-requested level. Until completion of the embedded operation: * Cancelling the operation will set its metadata's \"cancelled_at_time\", and begin restoring resources to their pre-request values. The operation is guaranteed to succeed at undoing all resource changes, after which point it will terminate with a CANCELLED status. * All other attempts to modify or delete the cluster will be rejected. * Reading the cluster via the API will continue to give the pre-request resource levels. Upon completion of the embedded operation: * Billing will begin for all successfully-allocated resources (some types may have lower than the requested levels). * All newly-reserved resources will be available for serving the cluster's tables. * The cluster's new resource levels will be readable via the API. [UpdateClusterMetadata][google.bigtable.admin.cluster.v1.UpdateClusterMetadata] The embedded operation's \"response\" field type is [Cluster][google.bigtable.admin.cluster.v1.Cluster], if successful.",
+     "parameters": {
+      "name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "name"
+     ],
+     "request": {
+      "$ref": "ClusterServiceCluster",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "ClusterMessagesCluster"
+     }
+    }
+   }
+  }
+ }
+}

@@ -68,7 +68,7 @@ class ListZonesRequest(messages.Message):
     # The unique name of the project for which a list of supported zones is
     # requested.
     # Values are of the form projects/<project>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class ListZonesResponse(messages.Message):
@@ -79,13 +79,13 @@ class ListZonesResponse(messages.Message):
 class GetClusterRequest(messages.Message):
     # The unique name of the requested cluster.
     # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class ListClustersRequest(messages.Message):
     # The unique name of the project for which a list of clusters is requested.
     # Values are of the form projects/<project>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class ListClustersResponse(messages.Message):
@@ -98,7 +98,7 @@ class ListClustersResponse(messages.Message):
 class CreateClusterRequest(messages.Message):
     # The unique name of the zone in which to create the cluster.
     # Values are of the form projects/<project>/zones/<zone>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
     # The id to be used when referring to the new cluster within its zone,
     # e.g. just the "test-cluster" section of the full name
     # "projects/<project>/zones/<zone>/clusters/test-cluster".
@@ -134,13 +134,13 @@ class UpdateClusterMetadata(messages.Message):
 class DeleteClusterRequest(messages.Message):
     # The unique name of the cluster to be deleted.
     # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class UndeleteClusterRequest(messages.Message):
     # The unique name of the cluster to be un-deleted.
     # Values are of the form projects/<project>/zones/<zone>/clusters/<cluster>
-    name = messages.StringField(1)
+    name = messages.StringField(1, required=True)
 
 
 class UndeleteClusterMetadata(messages.Message):

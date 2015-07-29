@@ -4,10 +4,10 @@ from protorpc import messages
 from protorpc import remote
 
 import dependency_messages
+from scopes import ADMIN_SCOPE
 import table_messages
 
 
-ADMIN_SCOPE = 'https://www.googleapis.com/auth/cloud-bigtable.admin'
 CREATE_TABLE_CONTAINER = endpoints.ResourceContainer(
     table_messages.CreateTableRequest,
     name = messages.StringField(1, required=True),
@@ -50,7 +50,7 @@ DELETE_COLUMN_FAMILY_CONTAINER = endpoints.ResourceContainer(
 
 
 @endpoints.api(name='bigtabletableadmin', version='v1',
-               description='Bigtable Table API',
+               description='Bigtable Table Admin API',
                hostname='bigtabletableadmin.googleapis.com',
                scopes=(ADMIN_SCOPE,))
 class BigtableTableService(remote.Service):
