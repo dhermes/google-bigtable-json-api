@@ -12,18 +12,18 @@ generate:
 	    cluster_service.BigtableClusterService \
 	    data_service.BigtableService \
 	    table_service.BigtableTableService
-	mv bigtabletableadmin-v1.discovery bigtabletableadmin-v1.discovery.rest
-	sed -i 's/{name}\/rename/{name}:rename/g' bigtabletableadmin-v1.discovery.rest
-	sed -i 's/columnFamilies\/{name}/{name}/g' bigtabletableadmin-v1.discovery.rest
-	mv operations-v1.discovery operations-v1.discovery.rest
-	sed -i 's/{name}\/cancel/{name}:cancel/g' operations-v1.discovery.rest
-	mv bigtableclusteradmin-v1.discovery bigtableclusteradmin-v1.discovery.rest
-	sed -i 's/{name}\/undelete/{name}:undelete/g' bigtableclusteradmin-v1.discovery.rest
-	mv bigtable-v1.discovery bigtable-v1.discovery.rest
-	sed -i 's/{table_name}\/rows\/read/{table_name}\/rows:read/g' bigtable-v1.discovery.rest
-	sed -i 's/{table_name}\/rows\/sampleKeys/{table_name}\/rows:sampleKeys/g' bigtable-v1.discovery.rest
-	sed -i 's/{table_name}\/rows\/{row_key}\/mutate/{table_name}\/rows\/{row_key}:mutate/g' bigtable-v1.discovery.rest
-	sed -i 's/{table_name}\/rows\/{row_key}\/checkAndMutate/{table_name}\/rows\/{row_key}:checkAndMutate/g' bigtable-v1.discovery.rest
-	sed -i 's/{table_name}\/rows\/{row_key}\/readModifyWrite/{table_name}\/rows\/{row_key}:readModifyWrite/g' bigtable-v1.discovery.rest
+	mv bigtabletableadmin-v1.discovery discovery_docs/bigtabletableadmin-v1.discovery.rest
+	sed -i 's/{name}\/rename/{name}:rename/g' discovery_docs/bigtabletableadmin-v1.discovery.rest
+	sed -i 's/columnFamilies\/{name}/{name}/g' discovery_docs/bigtabletableadmin-v1.discovery.rest
+	mv operations-v1.discovery discovery_docs/operations-v1.discovery.rest
+	sed -i 's/{name}\/cancel/{name}:cancel/g' discovery_docs/operations-v1.discovery.rest
+	mv bigtableclusteradmin-v1.discovery discovery_docs/bigtableclusteradmin-v1.discovery.rest
+	sed -i 's/{name}\/undelete/{name}:undelete/g' discovery_docs/bigtableclusteradmin-v1.discovery.rest
+	mv bigtable-v1.discovery discovery_docs/bigtable-v1.discovery.rest
+	sed -i 's/{table_name}\/rows\/read/{table_name}\/rows:read/g' discovery_docs/bigtable-v1.discovery.rest
+	sed -i 's/{table_name}\/rows\/sampleKeys/{table_name}\/rows:sampleKeys/g' discovery_docs/bigtable-v1.discovery.rest
+	sed -i 's/{table_name}\/rows\/{row_key}\/mutate/{table_name}\/rows\/{row_key}:mutate/g' discovery_docs/bigtable-v1.discovery.rest
+	sed -i 's/{table_name}\/rows\/{row_key}\/checkAndMutate/{table_name}\/rows\/{row_key}:checkAndMutate/g' discovery_docs/bigtable-v1.discovery.rest
+	sed -i 's/{table_name}\/rows\/{row_key}\/readModifyWrite/{table_name}\/rows\/{row_key}:readModifyWrite/g' discovery_docs/bigtable-v1.discovery.rest
 
 .PHONY: generate help
